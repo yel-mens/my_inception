@@ -49,6 +49,36 @@ The infrastructure is built from custom Dockerfiles rather than relying on preco
 
 Only the HTTPS entry point is intended to be exposed to the host. WordPress and MariaDB communicate internally through the Docker network.
 
+## Technical choices
+
+### Virtual Machines vs Docker
+
+A virtual machine runs a complete guest operating system with its own kernel,
+while Docker containers share the host kernel and isolate individual processes.
+Containers are therefore lighter and faster to start, while virtual machines
+provide stronger isolation at the operating-system level.
+
+### Secrets vs Environment Variables
+
+Environment variables are convenient for configuration but can be exposed
+through the process environment or container inspection. Secrets are designed
+for sensitive information such as passwords and provide better separation
+between configuration and credentials.
+
+### Docker Network vs Host Network
+
+A Docker network isolates container communication and provides DNS resolution
+using service names. Host networking removes this isolation and makes services
+use the host network directly. This project uses a dedicated Docker bridge
+network.
+
+### Docker Volumes vs Bind Mounts
+
+Docker volumes are managed through Docker and are designed for persistent
+application data. Bind mounts directly expose a chosen host filesystem path
+inside a container and therefore depend more strongly on the host filesystem.
+
+
 ## Services
 
 | Service | Responsibility |

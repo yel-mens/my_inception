@@ -40,5 +40,4 @@ tls3:
 tls1:
 	openssl s_client -connect yel-mens.42.fr:443 -tls1_1
 
-.PHONY:
-	all up down clean fclean re dirs db-shell tls2 tls3 tls1
+.PHONY: all up down clean fclean re dirs db-shell tls2 tls3 tls1
