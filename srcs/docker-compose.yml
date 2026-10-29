@@ -14,16 +14,10 @@ volumes:
       device: /home/yel-mens/data/wordpress
       o: bind
       type: none
-  adminer:
-    name: adminer
-    driver: local
-    driver_opts:
-      device: /home/yel-mens/data/adminer
-      o: bind
-      type: none
 
 services:
     nginx:
+        image: nginx
         container_name: nginx
         build: ./requirements/nginx
         networks:
@@ -37,6 +31,7 @@ services:
         restart: on-failure
 
     wordpress:
+        image: wordpress
         container_name: wordpress
         build: ./requirements/wordpress
         networks:
@@ -52,6 +47,7 @@ services:
         restart: on-failure
 
     mariadb:
+        image: mariadb
         container_name: mariadb
         build: ./requirements/mariadb
         networks:
@@ -63,41 +59,6 @@ services:
         expose:
             - "3306"
         restart: on-failure
-  # BONUS PART
-    redis:
-        container_name: redis
-        build: ./requirements/bonus/redis
-        restart: on-failure
-        networks:
-            - inception
-    
-    ftp-server:
-      container_name: ftp-server
-      build: requirements/bonus/ftp_server
-      ports:
-        - "21:21"
-        - "21100-21110:21100-21110"
-      volumes:
-        - "wordpress:/var/www/html"
-      depends_on:
-        - wordpress
-      env_file:
-        - .env
-      networks:
-        - inception
-      restart: on-failure
-
-    adminer:
-      container_name: adminer
-      build: ./requirements/bonus/adminer
-      networks:
-        - inception
-      depends_on:
-        - wordpress
-        - mariadb
-      volumes:
-        - adminer:/var/www/html
-      restart: on-failure
 
 networks:
   inception:

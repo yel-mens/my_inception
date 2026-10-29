@@ -7,7 +7,6 @@ all: up
 dirs:
 	@mkdir -p /home/$(LOGIN)/data/mariadb
 	@mkdir -p /home/$(LOGIN)/data/wordpress
-	@mkdir -p /home/$(LOGIN)/data/adminer
 
 up: dirs
 	$(COMPOSE) up -d --build

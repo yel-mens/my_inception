@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-RUN apt update -y && apt upgrade -y && apt install -y curl php-fpm php-mysqli
+RUN apt update -y && apt upgrade -y && apt install -y curl php-fpm php-mysqli mariadb-client
 
 #ADD RIGHTS TO /run/php
 RUN mkdir -p /run/php && chown www-data:www-data /run/php
